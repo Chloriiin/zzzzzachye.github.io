@@ -8,7 +8,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeRect, setActiveRect] = useState({ left: 0, width: 0 });
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [prevPathname, setPrevPathname] = useState('');
+  const [isInitialRender, setIsInitialRender] = useState(true);
   const navRef = useRef<HTMLDivElement>(null);
   
   // Refs for each link element
@@ -33,44 +34,48 @@ export default function Navbar() {
     return '/';
   };
 
-  // Initialize the indicator position when component mounts
-  useEffect(() => {
-    const currentPath = getCurrentPathKey();
-    const activeLink = linkRefs.current[currentPath];
+  // Update the position of the indicator
+  const updateIndicatorPosition = (pathKey: string) => {
+    const activeLink = linkRefs.current[pathKey];
     
     if (activeLink && navRef.current) {
       const navRect = navRef.current.getBoundingClientRect();
       const linkRect = activeLink.getBoundingClientRect();
       
-      // Set initial position without animation
       setActiveRect({
         left: linkRect.left - navRect.left,
         width: linkRect.width,
       });
-      
-      // Mark as initialized after the first render
-      setIsInitialized(true);
     }
+  };
+
+  // On first render, set initial position without animation
+  useEffect(() => {
+    const currentPath = getCurrentPathKey();
+    updateIndicatorPosition(currentPath);
+    setPrevPathname(currentPath);
+    
+    // Set initial render to false after a small delay
+    const timer = setTimeout(() => {
+      setIsInitialRender(false);
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, []);
 
-  // Update indicator position when pathname changes
+  // Update indicator position when pathname changes, with animation
   useEffect(() => {
-    // Skip if not initialized yet (first render)
-    if (!isInitialized) return;
+    // Skip on initial render
+    if (isInitialRender) return;
     
     const currentPath = getCurrentPathKey();
-    const activeLink = linkRefs.current[currentPath];
     
-    if (activeLink && navRef.current) {
-      const navRect = navRef.current.getBoundingClientRect();
-      const linkRect = activeLink.getBoundingClientRect();
-      
-      setActiveRect({
-        left: linkRect.left - navRect.left,
-        width: linkRect.width,
-      });
+    // Only update if the path actually changed
+    if (currentPath !== prevPathname) {
+      updateIndicatorPosition(currentPath);
+      setPrevPathname(currentPath);
     }
-  }, [pathname, isInitialized]);
+  }, [pathname, isInitialRender, prevPathname]);
 
   return (
     <nav className="w-full flex justify-center fixed top-8 left-0 right-0 z-50">
@@ -86,7 +91,7 @@ export default function Navbar() {
         <div className="flex flex-1 justify-around relative" ref={navRef}>
           {/* Background indicator that slides */}
           <div 
-            className={`absolute bg-white rounded-full ${isInitialized ? 'transition-all duration-300 ease-in-out' : ''}`}
+            className={`absolute bg-white rounded-full ${!isInitialRender ? 'transition-all duration-300 ease-in-out' : ''}`}
             style={{
               left: `${activeRect.left}px`,
               width: `${activeRect.width}px`,
