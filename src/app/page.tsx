@@ -8,8 +8,8 @@ export default function Home() {
         <Navbar />
         
         <div className="flex flex-col items-center justify-center mt-32 md:mt-48">
-          <div className="w-full max-w-md mx-auto">
-            <h1 className="text-5xl md:text-7xl font-bold mb-4 text-center">
+          <div className="w-full max-w-md">
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 text-left">
               Chloriiin<span className="ml-2 md:ml-4">です。</span>
             </h1>
             <p className="text-xl md:text-3xl font-bold text-left">
