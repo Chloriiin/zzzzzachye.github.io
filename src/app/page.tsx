@@ -3,15 +3,18 @@ import Navbar from '../components/Navbar';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
-      <Navbar />
-      <div className="max-w-4xl w-full flex flex-col items-center justify-center py-12">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center">
-          Welcome to My Personal Website
-        </h1>
-        <p className="text-lg text-center mb-8">
-          This is a placeholder for my personal GitHub website. It will be updated according to the Figma design.
-        </p>
+    <main className="flex min-h-screen flex-col items-center px-4 pt-16 pb-24">
+      <div className="w-full max-w-4xl">
+        <Navbar />
+        
+        <div className="flex flex-col items-center justify-center mt-32 md:mt-48">
+          <h1 className="text-5xl md:text-7xl font-bold mb-8 text-center">
+            Chloriiin<span className="ml-2 md:ml-4">です。</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-center">
+            Please select the page on navigator
+          </p>
+        </div>
       </div>
     </main>
   );
