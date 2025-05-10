@@ -23,21 +23,21 @@ export default function TypedTitle() {
     return () => clearTimeout(timer);
   }, [displayedText, fullTitle]);
 
-  // Flickering cursor effect (more erratic for old terminal look)
+  // Flickering cursor effect at approximately 3 times per second
   useEffect(() => {
-    // Faster, more unpredictable flicker intervals for old terminal feel
-    const getRandomInterval = () => {
-      // More erratic during typing, slightly more stable after
-      const base = isTypingComplete ? 100 : 70;
-      return base + Math.floor(Math.random() * 150);
+    // Base interval of around 330ms (3 times per second)
+    const getFlickerInterval = () => {
+      // Add slight randomness for more authentic terminal feel
+      const baseInterval = 330; // ~3 times per second
+      return baseInterval + Math.floor(Math.random() * 30) - 15; // +/- 15ms variation
     };
     
     const flickerCursor = () => {
       setShowCursor(prev => !prev);
-      setTimeout(flickerCursor, getRandomInterval());
+      setTimeout(flickerCursor, getFlickerInterval());
     };
     
-    const initialTimeout = setTimeout(flickerCursor, getRandomInterval());
+    const initialTimeout = setTimeout(flickerCursor, getFlickerInterval());
     
     return () => clearTimeout(initialTimeout);
   }, [isTypingComplete]);
@@ -55,7 +55,7 @@ export default function TypedTitle() {
     return displayedText;
   };
 
-  // Add custom flickering style with CSS
+  // Add custom flickering style with CSS - slowed down
   const flickerStyle = `
     @keyframes textFlicker {
       0% { opacity: 1.0; }
@@ -82,7 +82,7 @@ export default function TypedTitle() {
           style={{ 
             marginLeft: displayedText.length === fullTitle.length ? '4px' : '1px',
             fontWeight: 'normal',
-            animation: showCursor ? 'textFlicker 0.2s linear infinite alternate' : 'none'
+            animation: showCursor ? 'textFlicker 0.33s linear infinite alternate' : 'none'
           }}
         >
           _
