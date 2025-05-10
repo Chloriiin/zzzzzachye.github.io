@@ -15,8 +15,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full flex justify-center py-4">
-      <div className="w-[670px] h-[56px] flex items-center justify-between bg-[#E4E4E4] rounded-full px-3">
+    <nav className="w-full flex justify-center fixed top-8 left-0 right-0 z-50">
+      <div className="w-[670px] h-[52px] flex items-center justify-between bg-[#E4E4E4] rounded-full px-3">
         <button 
           className="flex items-center justify-center p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -42,7 +42,7 @@ export default function Navbar() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="mt-2 bg-[#E4E4E4] rounded-lg p-4 md:hidden">
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-[#E4E4E4] rounded-lg p-4 md:hidden w-[670px]">
           <Link href="/" className={`block py-2 font-sfpro ${isActive('/') ? 'font-bold' : 'font-normal'}`}>Home</Link>
           <Link href="/blogs" className={`block py-2 font-sfpro ${isActive('/blogs') ? 'font-bold' : 'font-normal'}`}>Blogs/Notes</Link>
           <Link href="/publications" className={`block py-2 font-sfpro ${isActive('/publications') ? 'font-bold' : 'font-normal'}`}>Publications/Portfolio</Link>
