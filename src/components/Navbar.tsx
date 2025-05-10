@@ -7,18 +7,16 @@ import { useState, useRef, useEffect } from 'react';
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeIndicatorStyle, setActiveIndicatorStyle] = useState({
-    left: 0,
-    width: 0,
-    display: 'none'
-  });
+  const [activeRect, setActiveRect] = useState({ left: 0, width: 0 });
+  const navRef = useRef<HTMLDivElement>(null);
   
-  const navRefs = {
-    '/': useRef<HTMLAnchorElement>(null),
-    '/blogs': useRef<HTMLAnchorElement>(null),
-    '/publications': useRef<HTMLAnchorElement>(null),
-    '/about': useRef<HTMLAnchorElement>(null),
-  };
+  // Refs for each link element
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({
+    '/': null,
+    '/blogs': null,
+    '/publications': null,
+    '/about': null,
+  });
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
@@ -26,43 +24,25 @@ export default function Navbar() {
     return false;
   };
 
-  // Update indicator position when pathname changes
+  // Calculate and update indicator position
   useEffect(() => {
-    const path = pathname === '/' ? '/' : 
-                pathname?.startsWith('/blogs') ? '/blogs' : 
-                pathname?.startsWith('/publications') ? '/publications' : 
-                pathname?.startsWith('/about') ? '/about' : '/';
+    const currentPath = pathname === '/' ? '/' : 
+                        pathname?.startsWith('/blogs') ? '/blogs' : 
+                        pathname?.startsWith('/publications') ? '/publications' : 
+                        pathname?.startsWith('/about') ? '/about' : '/';
     
-    const activeRef = navRefs[path];
+    const activeLink = linkRefs.current[currentPath];
     
-    if (activeRef?.current) {
-      const element = activeRef.current;
-      const parent = element.parentElement;
+    if (activeLink && navRef.current) {
+      const navRect = navRef.current.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
       
-      if (parent) {
-        const parentRect = parent.getBoundingClientRect();
-        const rect = element.getBoundingClientRect();
-        
-        // Calculate position relative to parent
-        setActiveIndicatorStyle({
-          left: rect.left - parentRect.left,
-          width: rect.width,
-          display: 'block'
-        });
-      }
+      setActiveRect({
+        left: linkRect.left - navRect.left,
+        width: linkRect.width,
+      });
     }
   }, [pathname]);
-
-  // Window resize handler to recalculate position
-  useEffect(() => {
-    const handleResize = () => {
-      // Trigger the useEffect above by forcing a re-render
-      setActiveIndicatorStyle(prev => ({...prev}));
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <nav className="w-full flex justify-center fixed top-8 left-0 right-0 z-50">
@@ -75,44 +55,45 @@ export default function Navbar() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <div className="flex flex-1 justify-around relative">
-          {/* Active indicator background */}
+        <div className="flex flex-1 justify-around relative" ref={navRef}>
+          {/* Background indicator that slides */}
           <div 
-            className="absolute bg-white rounded-full transition-all duration-300 ease-in-out" 
-            style={{ 
-              left: `${activeIndicatorStyle.left}px`, 
-              width: `${activeIndicatorStyle.width}px`,
-              height: '38px',
-              top: '4px',
-              display: activeIndicatorStyle.display,
+            className="absolute bg-white rounded-full transition-all duration-300 ease-in-out"
+            style={{
+              left: `${activeRect.left}px`,
+              width: `${activeRect.width}px`,
+              height: '40px',
+              top: '50%',
+              transform: 'translateY(-50%)'
             }}
           />
           
+          {/* Navigation links */}
           <Link 
             href="/" 
-            ref={navRefs['/']}
-            className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 relative ${isActive('/') ? 'font-bold' : 'font-normal hover:text-gray-800'}`}
+            ref={(el) => { linkRefs.current['/'] = el; }}
+            className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 ${isActive('/') ? 'font-bold' : 'font-normal'}`}
           >
             Home
           </Link>
           <Link 
             href="/blogs" 
-            ref={navRefs['/blogs']}
-            className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 relative ${isActive('/blogs') ? 'font-bold' : 'font-normal hover:text-gray-800'}`}
+            ref={(el) => { linkRefs.current['/blogs'] = el; }}
+            className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 ${isActive('/blogs') ? 'font-bold' : 'font-normal'}`}
           >
             Blogs/Notes
           </Link>
           <Link 
             href="/publications" 
-            ref={navRefs['/publications']}
-            className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 relative ${isActive('/publications') ? 'font-bold' : 'font-normal hover:text-gray-800'}`}
+            ref={(el) => { linkRefs.current['/publications'] = el; }}
+            className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 ${isActive('/publications') ? 'font-bold' : 'font-normal'}`}
           >
             Publications/Portfolio
           </Link>
           <Link 
             href="/about" 
-            ref={navRefs['/about']}
-            className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 relative ${isActive('/about') ? 'font-bold' : 'font-normal hover:text-gray-800'}`}
+            ref={(el) => { linkRefs.current['/about'] = el; }}
+            className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 ${isActive('/about') ? 'font-bold' : 'font-normal'}`}
           >
             About
           </Link>
