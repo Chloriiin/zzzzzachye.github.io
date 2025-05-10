@@ -8,6 +8,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeRect, setActiveRect] = useState({ left: 0, width: 0 });
+  const [isInitialized, setIsInitialized] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   
   // Refs for each link element
@@ -24,13 +25,40 @@ export default function Navbar() {
     return false;
   };
 
-  // Calculate and update indicator position
+  const getCurrentPathKey = () => {
+    if (pathname === '/') return '/';
+    if (pathname?.startsWith('/blogs')) return '/blogs';
+    if (pathname?.startsWith('/publications')) return '/publications';
+    if (pathname?.startsWith('/about')) return '/about';
+    return '/';
+  };
+
+  // Initialize the indicator position when component mounts
   useEffect(() => {
-    const currentPath = pathname === '/' ? '/' : 
-                        pathname?.startsWith('/blogs') ? '/blogs' : 
-                        pathname?.startsWith('/publications') ? '/publications' : 
-                        pathname?.startsWith('/about') ? '/about' : '/';
+    const currentPath = getCurrentPathKey();
+    const activeLink = linkRefs.current[currentPath];
     
+    if (activeLink && navRef.current) {
+      const navRect = navRef.current.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+      
+      // Set initial position without animation
+      setActiveRect({
+        left: linkRect.left - navRect.left,
+        width: linkRect.width,
+      });
+      
+      // Mark as initialized after the first render
+      setIsInitialized(true);
+    }
+  }, []);
+
+  // Update indicator position when pathname changes
+  useEffect(() => {
+    // Skip if not initialized yet (first render)
+    if (!isInitialized) return;
+    
+    const currentPath = getCurrentPathKey();
     const activeLink = linkRefs.current[currentPath];
     
     if (activeLink && navRef.current) {
@@ -42,7 +70,7 @@ export default function Navbar() {
         width: linkRect.width,
       });
     }
-  }, [pathname]);
+  }, [pathname, isInitialized]);
 
   return (
     <nav className="w-full flex justify-center fixed top-8 left-0 right-0 z-50">
@@ -58,7 +86,7 @@ export default function Navbar() {
         <div className="flex flex-1 justify-around relative" ref={navRef}>
           {/* Background indicator that slides */}
           <div 
-            className="absolute bg-white rounded-full transition-all duration-300 ease-in-out"
+            className={`absolute bg-white rounded-full ${isInitialized ? 'transition-all duration-300 ease-in-out' : ''}`}
             style={{
               left: `${activeRect.left}px`,
               width: `${activeRect.width}px`,
