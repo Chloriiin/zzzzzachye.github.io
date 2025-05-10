@@ -40,7 +40,7 @@ const Navbar = () => {
 
         {/* Nav Links */}
         <div className="flex items-center gap-2">
-          {navLinks.map((link, index) => (
+          {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
