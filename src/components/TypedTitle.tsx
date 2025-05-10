@@ -23,15 +23,23 @@ export default function TypedTitle() {
     return () => clearTimeout(timer);
   }, [displayedText, fullTitle]);
 
-  // Blinking cursor effect (always blinks, faster during typing)
+  // Flickering cursor effect (more erratic for old terminal look)
   useEffect(() => {
-    const blinkInterval = isTypingComplete ? 280 : 180; // Faster blinking for more flickering effect
+    // Faster, more unpredictable flicker intervals for old terminal feel
+    const getRandomInterval = () => {
+      // More erratic during typing, slightly more stable after
+      const base = isTypingComplete ? 100 : 70;
+      return base + Math.floor(Math.random() * 150);
+    };
     
-    const blinkTimer = setInterval(() => {
+    const flickerCursor = () => {
       setShowCursor(prev => !prev);
-    }, blinkInterval);
-
-    return () => clearInterval(blinkTimer);
+      setTimeout(flickerCursor, getRandomInterval());
+    };
+    
+    const initialTimeout = setTimeout(flickerCursor, getRandomInterval());
+    
+    return () => clearTimeout(initialTimeout);
   }, [isTypingComplete]);
 
   // Format the displayed text to add spacing between Chloriiin and です
@@ -47,31 +55,34 @@ export default function TypedTitle() {
     return displayedText;
   };
 
+  // Add custom flickering style with CSS
+  const flickerStyle = `
+    @keyframes textFlicker {
+      0% { opacity: 1.0; }
+      10% { opacity: 0.2; }
+      20% { opacity: 0.9; }
+      30% { opacity: 1.0; }
+      40% { opacity: 0.0; }
+      50% { opacity: 0.9; }
+      60% { opacity: 0.2; }
+      70% { opacity: 1.0; }
+      80% { opacity: 0.5; }
+      90% { opacity: 0.8; }
+      100% { opacity: 1.0; }
+    }
+  `;
+
   return (
     <>
-      <style jsx>{`
-        @keyframes flicker {
-          0% { opacity: 1; }
-          49% { opacity: 1; }
-          50% { opacity: 0; }
-          52% { opacity: 1; }
-          87% { opacity: 1; }
-          88% { opacity: 0; }
-          90% { opacity: 1; }
-          100% { opacity: 1; }
-        }
-        .terminal-cursor {
-          animation: flicker 0.6s infinite;
-          animation-timing-function: steps(1);
-        }
-      `}</style>
+      <style jsx>{flickerStyle}</style>
       <h1 className="text-5xl md:text-7xl font-bold mb-4 text-left whitespace-nowrap relative">
         {formatDisplayedText()}
         <span 
-          className={`${showCursor ? 'terminal-cursor' : 'opacity-0'} ml-1 inline-block`}
+          className={`${showCursor ? 'opacity-100' : 'opacity-0'} ml-1 inline-block transition-none`}
           style={{ 
             marginLeft: displayedText.length === fullTitle.length ? '4px' : '1px',
-            fontWeight: 'normal'
+            fontWeight: 'normal',
+            animation: showCursor ? 'textFlicker 0.2s linear infinite alternate' : 'none'
           }}
         >
           _
