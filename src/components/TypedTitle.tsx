@@ -25,7 +25,7 @@ export default function TypedTitle() {
 
   // Blinking cursor effect (always blinks, faster during typing)
   useEffect(() => {
-    const blinkInterval = isTypingComplete ? 530 : 300;
+    const blinkInterval = isTypingComplete ? 280 : 180; // Faster blinking for more flickering effect
     
     const blinkTimer = setInterval(() => {
       setShowCursor(prev => !prev);
@@ -48,17 +48,35 @@ export default function TypedTitle() {
   };
 
   return (
-    <h1 className="text-5xl md:text-7xl font-bold mb-4 text-left whitespace-nowrap relative">
-      {formatDisplayedText()}
-      <span 
-        className={`${showCursor ? 'opacity-100' : 'opacity-0'} ml-1 inline-block transition-opacity duration-100 animate-pulse`}
-        style={{ 
-          marginLeft: displayedText.length === fullTitle.length ? '4px' : '1px',
-          fontWeight: 'normal'
-        }}
-      >
-        _
-      </span>
-    </h1>
+    <>
+      <style jsx>{`
+        @keyframes flicker {
+          0% { opacity: 1; }
+          49% { opacity: 1; }
+          50% { opacity: 0; }
+          52% { opacity: 1; }
+          87% { opacity: 1; }
+          88% { opacity: 0; }
+          90% { opacity: 1; }
+          100% { opacity: 1; }
+        }
+        .terminal-cursor {
+          animation: flicker 0.6s infinite;
+          animation-timing-function: steps(1);
+        }
+      `}</style>
+      <h1 className="text-5xl md:text-7xl font-bold mb-4 text-left whitespace-nowrap relative">
+        {formatDisplayedText()}
+        <span 
+          className={`${showCursor ? 'terminal-cursor' : 'opacity-0'} ml-1 inline-block`}
+          style={{ 
+            marginLeft: displayedText.length === fullTitle.length ? '4px' : '1px',
+            fontWeight: 'normal'
+          }}
+        >
+          _
+        </span>
+      </h1>
+    </>
   );
 } 
