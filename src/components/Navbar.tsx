@@ -7,18 +7,17 @@ import { useState, useRef, useEffect } from 'react';
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeRect, setActiveRect] = useState({ left: 0, width: 0 });
-  const [prevPathname, setPrevPathname] = useState('');
-  const [isInitialRender, setIsInitialRender] = useState(true);
-  const navRef = useRef<HTMLDivElement>(null);
-  
-  // Refs for each link element
-  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({
-    '/': null,
-    '/blogs': null,
-    '/publications': null,
-    '/about': null,
+  const [indicatorStyle, setIndicatorStyle] = useState({
+    left: 0,
+    width: 0,
+    opacity: 0
   });
+  const navRef = useRef<HTMLDivElement>(null);
+  const linksRef = useRef<Array<HTMLAnchorElement | null>>([]);
+
+  const resetLinksRef = () => {
+    linksRef.current = linksRef.current.slice(0, 4);
+  };
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
@@ -26,56 +25,39 @@ export default function Navbar() {
     return false;
   };
 
-  const getCurrentPathKey = () => {
-    if (pathname === '/') return '/';
-    if (pathname?.startsWith('/blogs')) return '/blogs';
-    if (pathname?.startsWith('/publications')) return '/publications';
-    if (pathname?.startsWith('/about')) return '/about';
-    return '/';
-  };
-
-  // Update the position of the indicator
-  const updateIndicatorPosition = (pathKey: string) => {
-    const activeLink = linkRefs.current[pathKey];
-    
-    if (activeLink && navRef.current) {
-      const navRect = navRef.current.getBoundingClientRect();
-      const linkRect = activeLink.getBoundingClientRect();
-      
-      setActiveRect({
-        left: linkRect.left - navRect.left,
-        width: linkRect.width,
-      });
-    }
-  };
-
-  // On first render, set initial position without animation
+  // Update the indicator position whenever the pathname changes
   useEffect(() => {
-    const currentPath = getCurrentPathKey();
-    updateIndicatorPosition(currentPath);
-    setPrevPathname(currentPath);
-    
-    // Set initial render to false after a small delay
+    // Wait for the component to be fully rendered
     const timer = setTimeout(() => {
-      setIsInitialRender(false);
+      if (!navRef.current) return;
+      
+      const navRect = navRef.current.getBoundingClientRect();
+      const activeIndex = [
+        '/',
+        '/blogs',
+        '/publications',
+        '/about'
+      ].findIndex(path => isActive(path));
+      
+      if (activeIndex !== -1 && linksRef.current[activeIndex]) {
+        const linkRect = linksRef.current[activeIndex]?.getBoundingClientRect();
+        if (linkRect) {
+          setIndicatorStyle({
+            left: linkRect.left - navRect.left,
+            width: linkRect.width,
+            opacity: 1
+          });
+        }
+      }
     }, 100);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
-  // Update indicator position when pathname changes, with animation
+  // Reset links ref on component mount
   useEffect(() => {
-    // Skip on initial render
-    if (isInitialRender) return;
-    
-    const currentPath = getCurrentPathKey();
-    
-    // Only update if the path actually changed
-    if (currentPath !== prevPathname) {
-      updateIndicatorPosition(currentPath);
-      setPrevPathname(currentPath);
-    }
-  }, [pathname, isInitialRender, prevPathname]);
+    resetLinksRef();
+  }, []);
 
   return (
     <nav className="w-full flex justify-center fixed top-8 left-0 right-0 z-50">
@@ -91,41 +73,50 @@ export default function Navbar() {
         <div className="flex flex-1 justify-around relative" ref={navRef}>
           {/* Background indicator that slides */}
           <div 
-            className={`absolute bg-white rounded-full ${!isInitialRender ? 'transition-all duration-300 ease-in-out' : ''}`}
+            className="absolute bg-white rounded-full transition-all duration-300 ease-in-out"
             style={{
-              left: `${activeRect.left}px`,
-              width: `${activeRect.width}px`,
+              left: `${indicatorStyle.left}px`,
+              width: `${indicatorStyle.width}px`,
               height: '40px',
               top: '50%',
-              transform: 'translateY(-50%)'
+              transform: 'translateY(-50%)',
+              opacity: indicatorStyle.opacity
             }}
           />
           
           {/* Navigation links */}
           <Link 
             href="/" 
-            ref={(el) => { linkRefs.current['/'] = el; }}
+            ref={el => {
+              linksRef.current[0] = el;
+            }}
             className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 ${isActive('/') ? 'font-bold' : 'font-normal'}`}
           >
             Home
           </Link>
           <Link 
             href="/blogs" 
-            ref={(el) => { linkRefs.current['/blogs'] = el; }}
+            ref={el => {
+              linksRef.current[1] = el;
+            }}
             className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 ${isActive('/blogs') ? 'font-bold' : 'font-normal'}`}
           >
             Blogs/Notes
           </Link>
           <Link 
             href="/publications" 
-            ref={(el) => { linkRefs.current['/publications'] = el; }}
+            ref={el => {
+              linksRef.current[2] = el;
+            }}
             className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 ${isActive('/publications') ? 'font-bold' : 'font-normal'}`}
           >
             Publications/Portfolio
           </Link>
           <Link 
             href="/about" 
-            ref={(el) => { linkRefs.current['/about'] = el; }}
+            ref={el => {
+              linksRef.current[3] = el;
+            }}
             className={`px-3 py-2 rounded-full transition-colors font-sfpro z-10 ${isActive('/about') ? 'font-bold' : 'font-normal'}`}
           >
             About
