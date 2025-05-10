@@ -10,7 +10,8 @@ export default function Navbar() {
   const [indicatorStyle, setIndicatorStyle] = useState({
     left: 0,
     width: 0,
-    opacity: 0
+    opacity: 0,
+    scale: 0.8
   });
   const navRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<Array<HTMLAnchorElement | null>>([]);
@@ -25,30 +26,47 @@ export default function Navbar() {
     return false;
   };
 
-  // Update the indicator position whenever the pathname changes
-  useEffect(() => {
-    // Wait for the component to be fully rendered
-    const timer = setTimeout(() => {
-      if (!navRef.current) return;
-      
-      const navRect = navRef.current.getBoundingClientRect();
-      const activeIndex = [
-        '/',
-        '/blogs',
-        '/publications',
-        '/about'
-      ].findIndex(path => isActive(path));
-      
-      if (activeIndex !== -1 && linksRef.current[activeIndex]) {
-        const linkRect = linksRef.current[activeIndex]?.getBoundingClientRect();
-        if (linkRect) {
+  // Find the active indicator position
+  const updateIndicatorPosition = () => {
+    if (!navRef.current) return;
+    
+    const navRect = navRef.current.getBoundingClientRect();
+    const activeIndex = [
+      '/',
+      '/blogs',
+      '/publications',
+      '/about'
+    ].findIndex(path => isActive(path));
+    
+    if (activeIndex !== -1 && linksRef.current[activeIndex]) {
+      const linkRect = linksRef.current[activeIndex]?.getBoundingClientRect();
+      if (linkRect) {
+        // First hide the indicator
+        setIndicatorStyle({
+          left: linkRect.left - navRect.left,
+          width: linkRect.width,
+          opacity: 0,
+          scale: 0.3
+        });
+        
+        // Then show it with animation after a small delay
+        setTimeout(() => {
           setIndicatorStyle({
             left: linkRect.left - navRect.left,
             width: linkRect.width,
-            opacity: 1
+            opacity: 1,
+            scale: 1
           });
-        }
+        }, 20);
       }
+    }
+  };
+
+  // Initialize and update the indicator position
+  useEffect(() => {
+    // Wait for the component to be fully rendered
+    const timer = setTimeout(() => {
+      updateIndicatorPosition();
     }, 100);
     
     return () => clearTimeout(timer);
@@ -71,16 +89,17 @@ export default function Navbar() {
           </svg>
         </button>
         <div className="flex flex-1 justify-around relative" ref={navRef}>
-          {/* Background indicator that slides */}
+          {/* Background indicator that expands like a balloon */}
           <div 
-            className="absolute bg-white rounded-full transition-all duration-300 ease-in-out"
+            className="absolute bg-white rounded-full"
             style={{
               left: `${indicatorStyle.left}px`,
               width: `${indicatorStyle.width}px`,
               height: '40px',
               top: '50%',
-              transform: 'translateY(-50%)',
-              opacity: indicatorStyle.opacity
+              transform: `translateY(-50%) scale(${indicatorStyle.scale})`,
+              opacity: indicatorStyle.opacity,
+              transition: 'opacity 0.05s ease-out, transform 0.25s cubic-bezier(0.17, 0.67, 0.34, 1.55)'
             }}
           />
           

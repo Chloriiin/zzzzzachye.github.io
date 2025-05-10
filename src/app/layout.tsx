@@ -1,4 +1,5 @@
 import './globals.css';
+import Navbar from '../components/Navbar';
 
 export const metadata = {
   title: 'Chloriiin - Personal Website',
@@ -12,7 +13,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        <main className="pt-[56px]">
+          {children}
+        </main>
+      </body>
     </html>
   );
 } 
