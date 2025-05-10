@@ -15,8 +15,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full max-w-4xl mx-auto py-4">
-      <div className="flex items-center justify-center bg-gray-100 rounded-full px-4 py-2">
+    <nav className="w-full flex justify-center py-4">
+      <div className="w-[670px] h-[56px] flex items-center justify-center bg-gray-100 rounded-full px-4">
         <button 
           className="flex items-center justify-center p-2 mr-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -26,16 +26,16 @@ export default function Navbar() {
           </svg>
         </button>
         <div className="flex space-x-2 overflow-x-auto whitespace-nowrap">
-          <Link href="/" className={`px-4 py-2 font-medium rounded-full transition-colors ${isActive('/') ? 'bg-white' : 'hover:bg-white'}`}>
+          <Link href="/" className={`px-4 py-2 rounded-full transition-colors font-sfpro ${isActive('/') ? 'bg-white font-bold' : 'hover:bg-white font-normal'}`}>
             Home
           </Link>
-          <Link href="/blogs" className={`px-4 py-2 font-medium rounded-full transition-colors ${isActive('/blogs') ? 'bg-white' : 'hover:bg-white'}`}>
+          <Link href="/blogs" className={`px-4 py-2 rounded-full transition-colors font-sfpro ${isActive('/blogs') ? 'bg-white font-bold' : 'hover:bg-white font-normal'}`}>
             Blogs/Notes
           </Link>
-          <Link href="/publications" className={`px-4 py-2 font-medium rounded-full transition-colors ${isActive('/publications') ? 'bg-white' : 'hover:bg-white'}`}>
+          <Link href="/publications" className={`px-4 py-2 rounded-full transition-colors font-sfpro ${isActive('/publications') ? 'bg-white font-bold' : 'hover:bg-white font-normal'}`}>
             Publications/Portfolio
           </Link>
-          <Link href="/about" className={`px-4 py-2 font-medium rounded-full transition-colors ${isActive('/about') ? 'bg-white' : 'hover:bg-white'}`}>
+          <Link href="/about" className={`px-4 py-2 rounded-full transition-colors font-sfpro ${isActive('/about') ? 'bg-white font-bold' : 'hover:bg-white font-normal'}`}>
             About
           </Link>
         </div>
@@ -43,10 +43,10 @@ export default function Navbar() {
 
       {isMobileMenuOpen && (
         <div className="mt-2 bg-gray-100 rounded-lg p-4 md:hidden">
-          <Link href="/" className="block py-2">Home</Link>
-          <Link href="/blogs" className="block py-2">Blogs/Notes</Link>
-          <Link href="/publications" className="block py-2">Publications/Portfolio</Link>
-          <Link href="/about" className="block py-2">About</Link>
+          <Link href="/" className={`block py-2 font-sfpro ${isActive('/') ? 'font-bold' : 'font-normal'}`}>Home</Link>
+          <Link href="/blogs" className={`block py-2 font-sfpro ${isActive('/blogs') ? 'font-bold' : 'font-normal'}`}>Blogs/Notes</Link>
+          <Link href="/publications" className={`block py-2 font-sfpro ${isActive('/publications') ? 'font-bold' : 'font-normal'}`}>Publications/Portfolio</Link>
+          <Link href="/about" className={`block py-2 font-sfpro ${isActive('/about') ? 'font-bold' : 'font-normal'}`}>About</Link>
         </div>
       )}
     </nav>
