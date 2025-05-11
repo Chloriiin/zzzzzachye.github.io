@@ -5,12 +5,12 @@ export default function About() {
     <main className="flex min-h-screen flex-col items-center px-4 pt-16 pb-24">
       <div className="w-full max-w-4xl">
         <div className="flex flex-col items-start mt-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 md:mb-0">
+          <div className="flex flex-col sm:flex-row sm:items-center w-full gap-6 mb-8">
+            <h1 className="text-5xl md:text-6xl font-bold whitespace-nowrap">
               About me
             </h1>
             
-            <div className="flex flex-wrap gap-3 mb-8 md:mb-0">
+            <div className="flex flex-wrap gap-3">
               <a 
                 href="https://drive.google.com/file/d/1-An8E7yUP2rvaIk2sOIvLIVWWQHk03as/view?usp=sharing" 
                 target="_blank" 
@@ -53,7 +53,7 @@ export default function About() {
             </div>
           </div>
           
-          <p className="text-lg mb-6 font-bold text-[#525252] mt-8">
+          <p className="text-lg mb-6 font-bold text-[#525252]">
             My name is Zhijiang (Zach) Ye, and I am currently pursuing Bachelor of Science in Biology and Applied 
             Mathematics (double major) at Emory University, with an expected graduation in May 2026.
           </p>
