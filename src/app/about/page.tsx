@@ -1,19 +1,19 @@
 export default function About() {
   return (
-    <main className="flex min-h-screen flex-col items-center px-4 pt-16 pb-24">
-      <div className="w-full max-w-5xl">
+    <main className="flex min-h-screen flex-col items-center px-2 sm:px-4 pt-16 pb-24">
+      <div className="w-full max-w-6xl xl:max-w-7xl">
         <div className="flex flex-col items-start mt-6">
-          <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+          <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 px-2 sm:px-0">
             <h1 className="text-5xl md:text-6xl font-bold whitespace-nowrap mb-6 lg:mb-0 text-[#86CECB]">
               About me
             </h1>
             
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <a 
                 href="https://drive.google.com/file/d/1-An8E7yUP2rvaIk2sOIvLIVWWQHk03as/view?usp=sharing" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold"
+                className="bg-black text-white px-3 sm:px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold text-sm sm:text-base"
               >
                 Curriculum vitae (English)
               </a>
@@ -21,7 +21,7 @@ export default function About() {
                 href="https://drive.google.com/file/d/1-An8E7yUP2rvaIk2sOIvLIVWWQHk03as/view?usp=sharing" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold"
+                className="bg-black text-white px-3 sm:px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold text-sm sm:text-base"
               >
                 Curriculum vitae (Chinese)
               </a>
@@ -29,7 +29,7 @@ export default function About() {
                 href="https://github.com/Chloriiin" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold flex items-center"
+                className="bg-black text-white px-3 sm:px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold flex items-center text-sm sm:text-base"
               >
                 <svg 
                   width="20" 
@@ -51,29 +51,29 @@ export default function About() {
                 href="https://www.linkedin.com/in/zhijiangye" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold"
+                className="bg-black text-white px-3 sm:px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold text-sm sm:text-base"
               >
                 LinkedIn
               </a>
               <a 
-                href="mailto:zachye@emory.edu"
-                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold"
+                href="mailto:zhijiang.ye@emory.edu"
+                className="bg-black text-white px-3 sm:px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold text-sm sm:text-base"
               >
                 Email
               </a>
             </div>
           </div>
           
-          <p className="text-lg mb-6 font-bold text-[#525252]">
+          <p className="text-lg mb-6 font-bold text-[#525252] px-2 sm:px-0">
             My name is Zhijiang (Zach) Ye, and I am currently pursuing Bachelor of Science in Biology and Applied 
             Mathematics (double major) at Emory University, with an expected graduation in May 2026.
           </p>
 
           <hr className="w-full border-gray-300 my-8" />
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-4 px-2 sm:px-0">
             {/* Biology Section */}
-            <div className="md:col-span-2 pr-8">
+            <div className="md:col-span-2 pr-0 md:pr-8">
               <p className="text-base text-black mb-4">
                 Currently I am working as an undergraduate researcher in the Sarafianos Lab at Emory Pediatrics. Here I investigate interaction dynamics between engineered HIV-1 Capsid protein (CA121) mutants and specific inhibitory compounds.
               </p>
@@ -86,7 +86,7 @@ export default function About() {
             </div>
 
             {/* Applied Math Section */}
-            <div className="md:col-span-2 pr-8 pt-8 md:pt-12">
+            <div className="md:col-span-2 pr-0 md:pr-8 pt-8 md:pt-12">
               <p className="text-base text-black">
                 While working at Sarafianos Lab, I am particularly fascinated by how numerical methods as well as mathematical modeling can be integrated with experimental biology to elucidate complex biochemical mechanisms. My work includes developing and optimizing curve-fitting algorithms to improve the accuracy of Thermal Shift Assay data interpretation.
               </p>
