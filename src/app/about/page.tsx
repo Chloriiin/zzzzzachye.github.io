@@ -64,14 +64,14 @@ export default function About() {
             </div>
           </div>
           
-          <p className="text-lg mb-3 font-bold text-[#525252] px-2 sm:px-0">
+          <p className="text-lg mb-2 font-bold text-[#525252] px-2 sm:px-0">
             My name is Zhijiang (Zach) Ye, and I am currently pursuing Bachelor of Science in Biology and Applied 
             Mathematics (double major) at Emory University, with an expected graduation in May 2026.
           </p>
 
-          <hr className="w-full border-gray-300 my-4" />
+          <hr className="w-full border-gray-300 my-2" />
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-2 px-2 sm:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-1 px-2 sm:px-0">
             {/* Biology Section */}
             <div className="md:col-span-2 pr-0 md:pr-8">
               <p className="text-lg text-black mb-4">
