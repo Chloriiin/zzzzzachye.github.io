@@ -4,7 +4,7 @@ export default function About() {
       <div className="w-full max-w-5xl">
         <div className="flex flex-col items-start mt-6">
           <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
-            <h1 className="text-5xl md:text-6xl font-bold whitespace-nowrap mb-6 lg:mb-0">
+            <h1 className="text-5xl md:text-6xl font-bold whitespace-nowrap mb-6 lg:mb-0 text-[#86CECB]">
               About me
             </h1>
             
