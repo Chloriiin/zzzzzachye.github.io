@@ -75,8 +75,8 @@ export default function About() {
           
           <div className="w-full flex flex-col md:flex-row gap-8 mt-1 px-2 sm:px-0">
             <div className="md:w-2/3 flex flex-col gap-6">
-              <div className="flex flex-col">
-                <div className="flex-grow mb-[150px]">
+              <div className="flex flex-col sm:flex-row sm:items-start">
+                <div className="flex-grow sm:pr-6">
                   <p className="text-lg text-black mb-2">
                     Currently I am working as an undergraduate researcher in the Sarafianos Lab at Emory Pediatrics. Here I investigate interaction dynamics between engineered HIV-1 Capsid protein (CA121) mutants and specific inhibitory compounds.
                   </p>
@@ -84,18 +84,18 @@ export default function About() {
                     My academic interests are focused particularly in biochemical pharmacology and structural biology.
                   </p>
                 </div>
-                <div className="flex-shrink-0 flex items-start justify-start">
+                <div className="flex-shrink-0 flex items-start justify-start pt-[150px] sm:pt-[150px]">
                   <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap">biology</h2>
                 </div>
               </div>
 
-              <div className="flex flex-col">
-                <div className="flex-grow mb-[150px]">
+              <div className="flex flex-col sm:flex-row sm:items-start">
+                <div className="flex-grow sm:pr-6">
                   <p className="text-lg text-black">
                     While working at Sarafianos Lab, I am particularly fascinated by how numerical methods as well as mathematical modeling can be integrated with experimental biology to elucidate complex biochemical mechanisms. My work includes developing and optimizing curve-fitting algorithms to improve the accuracy of Thermal Shift Assay data interpretation.
                   </p>
                 </div>
-                <div className="flex-shrink-0 flex flex-col items-start justify-start">
+                <div className="flex-shrink-0 flex flex-col items-start justify-start pt-[150px] sm:pt-[150px]">
                   <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap">Applied</h2>
                   <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap mt-1">Math</h2>
                 </div>
