@@ -55,6 +55,12 @@ export default function About() {
               >
                 LinkedIn
               </a>
+              <a 
+                href="mailto:zachye@emory.edu"
+                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold"
+              >
+                Email
+              </a>
             </div>
           </div>
           
@@ -62,30 +68,32 @@ export default function About() {
             My name is Zhijiang (Zach) Ye, and I am currently pursuing Bachelor of Science in Biology and Applied 
             Mathematics (double major) at Emory University, with an expected graduation in May 2026.
           </p>
+
+          <hr className="w-full border-gray-300 my-8" />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-8">
-            <div className="bg-[#f2f2f2] p-6 rounded-xl">
-              <h2 className="text-3xl font-bold mb-4">Biology</h2>
-              <p className="text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. 
-                Maecenas vel magna vel libero tincidunt scelerisque non id turpis.
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-4">
+            {/* Biology Section */}
+            <div className="md:col-span-2 pr-8">
+              <p className="text-base text-black mb-4">
+                Currently I am working as an undergraduate researcher in the Sarafianos Lab at Emory Pediatrics. Here I investigate interaction dynamics between engineered HIV-1 Capsid protein (CA121) mutants and specific inhibitory compounds.
+              </p>
+              <p className="text-base text-black">
+                My academic interests are focused particularly in biochemical pharmacology and structural biology.
               </p>
             </div>
-            
-            <div className="bg-[#f2f2f2] p-6 rounded-xl">
-              <h2 className="text-3xl font-bold mb-4">Applied Math</h2>
-              <p className="text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. 
-                Maecenas vel magna vel libero tincidunt scelerisque non id turpis.
+            <div className="flex items-start justify-start md:justify-center md:items-center">
+              <h2 className="text-5xl font-bold text-[#86CECB]">biology</h2>
+            </div>
+
+            {/* Applied Math Section */}
+            <div className="md:col-span-2 pr-8 pt-8 md:pt-12">
+              <p className="text-base text-black">
+                While working at Sarafianos Lab, I am particularly fascinated by how numerical methods as well as mathematical modeling can be integrated with experimental biology to elucidate complex biochemical mechanisms. My work includes developing and optimizing curve-fitting algorithms to improve the accuracy of Thermal Shift Assay data interpretation.
               </p>
             </div>
-            
-            <div className="bg-[#f2f2f2] p-6 rounded-xl md:col-span-2">
-              <h2 className="text-3xl font-bold mb-4">Research Interests</h2>
-              <p className="text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. 
-                Maecenas vel magna vel libero tincidunt scelerisque non id turpis.
-              </p>
+            <div className="flex flex-col items-start justify-start md:justify-center md:items-center pt-8 md:pt-12">
+              <h2 className="text-5xl font-bold text-[#86CECB]">Applied</h2>
+              <h2 className="text-5xl font-bold text-[#86CECB] -mt-2">Math</h2>
             </div>
           </div>
         </div>
