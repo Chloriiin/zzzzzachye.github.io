@@ -1,7 +1,7 @@
 export default function About() {
   return (
     <main className="flex min-h-screen flex-col items-center px-2 sm:px-4 pt-16 pb-24">
-      <div className="w-full max-w-6xl xl:max-w-7xl">
+      <div className="w-full max-w-5xl xl:max-w-6xl">
         <div className="flex flex-col items-start mt-6">
           <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 px-2 sm:px-0">
             <h1 className="text-5xl md:text-6xl font-bold whitespace-nowrap mb-6 lg:mb-0 text-[#86CECB]">
@@ -64,20 +64,20 @@ export default function About() {
             </div>
           </div>
           
-          <p className="text-lg mb-6 font-bold text-[#525252] px-2 sm:px-0">
+          <p className="text-lg mb-3 font-bold text-[#525252] px-2 sm:px-0">
             My name is Zhijiang (Zach) Ye, and I am currently pursuing Bachelor of Science in Biology and Applied 
             Mathematics (double major) at Emory University, with an expected graduation in May 2026.
           </p>
 
-          <hr className="w-full border-gray-300 my-8" />
+          <hr className="w-full border-gray-300 my-4" />
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-4 px-2 sm:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-2 px-2 sm:px-0">
             {/* Biology Section */}
             <div className="md:col-span-2 pr-0 md:pr-8">
-              <p className="text-base text-black mb-4">
+              <p className="text-lg text-black mb-4">
                 Currently I am working as an undergraduate researcher in the Sarafianos Lab at Emory Pediatrics. Here I investigate interaction dynamics between engineered HIV-1 Capsid protein (CA121) mutants and specific inhibitory compounds.
               </p>
-              <p className="text-base text-black">
+              <p className="text-lg text-black">
                 My academic interests are focused particularly in biochemical pharmacology and structural biology.
               </p>
             </div>
@@ -87,7 +87,7 @@ export default function About() {
 
             {/* Applied Math Section */}
             <div className="md:col-span-2 pr-0 md:pr-8 pt-8 md:pt-12">
-              <p className="text-base text-black">
+              <p className="text-lg text-black">
                 While working at Sarafianos Lab, I am particularly fascinated by how numerical methods as well as mathematical modeling can be integrated with experimental biology to elucidate complex biochemical mechanisms. My work includes developing and optimizing curve-fitting algorithms to improve the accuracy of Thermal Shift Assay data interpretation.
               </p>
             </div>
