@@ -1,48 +1,59 @@
+import Image from 'next/image';
+
 export default function About() {
   return (
-    <main className="flex min-h-screen flex-col items-center px-4 pt-28 pb-24">
+    <main className="flex min-h-screen flex-col items-center px-4 pt-16 pb-24">
       <div className="w-full max-w-4xl">
-        <div className="flex flex-col items-start mt-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            About me
-          </h1>
-          
-          <div className="flex flex-wrap gap-3 mb-8">
-            <a 
-              href="https://drive.google.com/file/d/1-An8E7yUP2rvaIk2sOIvLIVWWQHk03as/view?usp=sharing" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors"
-            >
-              Curriculum vitae (English)
-            </a>
-            <a 
-              href="https://drive.google.com/file/d/1-An8E7yUP2rvaIk2sOIvLIVWWQHk03as/view?usp=sharing" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors"
-            >
-              Curriculum vitae (Chinese)
-            </a>
-            <a 
-              href="https://github.com/Chloriiin" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors"
-            >
-              GitHub
-            </a>
-            <a 
-              href="https://www.linkedin.com/in/zhijiangye" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors"
-            >
-              LinkedIn
-            </a>
+        <div className="flex flex-col items-start mt-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 md:mb-0">
+              About me
+            </h1>
+            
+            <div className="flex flex-wrap gap-3 mb-8 md:mb-0">
+              <a 
+                href="https://drive.google.com/file/d/1-An8E7yUP2rvaIk2sOIvLIVWWQHk03as/view?usp=sharing" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold"
+              >
+                Curriculum vitae (English)
+              </a>
+              <a 
+                href="https://drive.google.com/file/d/1-An8E7yUP2rvaIk2sOIvLIVWWQHk03as/view?usp=sharing" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold"
+              >
+                Curriculum vitae (Chinese)
+              </a>
+              <a 
+                href="https://github.com/Chloriiin" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold flex items-center"
+              >
+                <Image 
+                  src="/imgs/github-mark-white.svg"
+                  alt="GitHub Logo"
+                  width={20}
+                  height={20}
+                  className="mr-2"
+                />
+                GitHub
+              </a>
+              <a 
+                href="https://www.linkedin.com/in/zhijiangye" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold"
+              >
+                LinkedIn
+              </a>
+            </div>
           </div>
           
-          <p className="text-lg mb-6">
+          <p className="text-lg mb-6 font-bold text-[#525252] mt-8">
             My name is Zhijiang (Zach) Ye, and I am currently pursuing Bachelor of Science in Biology and Applied 
             Mathematics (double major) at Emory University, with an expected graduation in May 2026.
           </p>
