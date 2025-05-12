@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image'; // Import Next.js Image component
 
 interface SubItem {
   title: string;
@@ -45,7 +44,9 @@ const disclaimerText1 = "This page contains notes that I have meticulously organ
 const disclaimerText2 = "Moreover, given the nature of my note-taking approach, I cannot guarantee content accuracy equivalent to professional educators, even though I strive for it. Therefore, please carefully examine the content when using these notes. Additionally, I warmly welcome any suggestions and feedback from readers.";
 
 export default function BlogsNotesPage() {
-  const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({}); // Default to all closed
+  const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
+    mathematics: true, // Default to open as per screenshot
+  });
 
   const toggleCategory = (id: string) => {
     setOpenCategories(prev => ({ ...prev, [id]: !prev[id] }));
@@ -57,54 +58,45 @@ export default function BlogsNotesPage() {
         <h1 className="text-5xl md:text-6xl font-bold text-black mb-10 md:mb-16">
           Blogs & Notes
         </h1>
-        {/* Background Board */}
-        <div className="bg-gray-50 p-6 md:p-8 rounded-lg shadow-sm">
-          <div className="flex flex-col md:flex-row gap-10 md:gap-16">
-            {/* Left Column - Toggle List */}
-            <div className="w-full md:w-2/3 flex flex-col gap-y-3">
-              {categoriesData.map(category => (
-                <div key={category.id}>
-                  <div 
-                    className="flex items-center cursor-pointer group"
-                    onClick={() => toggleCategory(category.id)}
-                  >
-                    <div className="w-6 h-6 mr-3 flex items-center justify-center">
-                      <Image
-                        src="/imgs/arrow_right.svg"
-                        alt="Toggle icon"
-                        width={18} // Adjust size as needed
-                        height={18} // Adjust size as needed
-                        className={`transition-transform duration-200 ease-in-out group-hover:opacity-70 ${openCategories[category.id] ? 'rotate-90' : ''}`}
-                      />
-                    </div>
-                    <h2 className="text-3xl font-bold text-black group-hover:text-gray-700">
-                      {category.title}
-                    </h2>
-                  </div>
-                  {openCategories[category.id] && (
-                    <div className="pl-10 mt-3 flex flex-col gap-y-2">
-                      {category.subItems.map(item => (
-                        <p key={item.title} className="text-xl text-black">
-                          {item.title}
-                        </p>
-                      ))}
-                      {category.subItems.length === 0 && (
-                          <p className="text-lg text-gray-500 italic">No notes in this section yet.</p>
-                      )}
-                    </div>
-                  )}
+        <div className="flex flex-col md:flex-row gap-10 md:gap-16">
+          {/* Left Column - Toggle List */}
+          <div className="w-full md:w-2/3 flex flex-col gap-y-3">
+            {categoriesData.map(category => (
+              <div key={category.id}>
+                <div 
+                  className="flex items-center cursor-pointer group"
+                  onClick={() => toggleCategory(category.id)}
+                >
+                  <span className="text-3xl font-bold text-black mr-3 transition-transform duration-200 ease-in-out group-hover:text-gray-700">
+                    {openCategories[category.id] ? '▼' : '▶'}
+                  </span>
+                  <h2 className="text-3xl font-bold text-black group-hover:text-gray-700">
+                    {category.title}
+                  </h2>
                 </div>
-              ))}
-            </div>
-            {/* Right Column - Disclaimer */}
-            <div className="w-full md:w-1/3 md:pt-1">
-              <p className="text-sm text-gray-700 leading-relaxed">
-                {disclaimerText1}
-              </p>
-              <p className="text-sm text-gray-700 leading-relaxed mt-4">
-                {disclaimerText2}
-              </p>
-            </div>
+                {openCategories[category.id] && (
+                  <div className="pl-10 mt-3 flex flex-col gap-y-2">
+                    {category.subItems.map(item => (
+                      <p key={item.title} className="text-xl text-black">
+                        {item.title}
+                      </p>
+                    ))}
+                    {category.subItems.length === 0 && (
+                        <p className="text-lg text-gray-500 italic">No notes in this section yet.</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          {/* Right Column - Disclaimer */}
+          <div className="w-full md:w-1/3 md:pt-2">
+            <p className="text-sm text-gray-700 leading-relaxed">
+              {disclaimerText1}
+            </p>
+            <p className="text-sm text-gray-700 leading-relaxed mt-4">
+              {disclaimerText2}
+            </p>
           </div>
         </div>
       </div>
