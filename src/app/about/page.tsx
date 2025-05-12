@@ -1,11 +1,39 @@
+'use client';
+
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 export default function About() {
+  const initialStyle = { opacity: 0, transform: 'translateY(20px)' };
+  const finalStyle = { opacity: 1, transform: 'translateY(0px)' };
+  const transitionClasses = 'transition-all duration-700 ease-out';
+
+  const [titleSectionStyle, setTitleSectionStyle] = useState(initialStyle);
+  const [introPStyle, setIntroPStyle] = useState(initialStyle);
+  const [hrStyle, setHrStyle] = useState(initialStyle);
+  const [mainGridStyle, setMainGridStyle] = useState(initialStyle);
+
+  useEffect(() => {
+    const timeouts = [
+      setTimeout(() => setTitleSectionStyle(finalStyle), 100),
+      setTimeout(() => setIntroPStyle(finalStyle), 300),
+      setTimeout(() => setHrStyle(finalStyle), 500),
+      setTimeout(() => setMainGridStyle(finalStyle), 700),
+    ];
+
+    return () => {
+      timeouts.forEach(clearTimeout);
+    };
+  }, []);
+
   return (
     <main className="flex min-h-screen flex-col items-center px-2 sm:px-4 pt-16 pb-24">
       <div className="w-full max-w-5xl xl:max-w-6xl">
         <div className="flex flex-col items-start mt-6">
-          <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 px-2 sm:px-0">
+          <div 
+            className={`w-full flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 px-2 sm:px-0 ${transitionClasses}`}
+            style={titleSectionStyle}
+          >
             <h1 className="text-5xl md:text-6xl font-bold whitespace-nowrap mb-6 lg:mb-0 text-[#86CECB]">
               About me
             </h1>
@@ -66,18 +94,27 @@ export default function About() {
             </div>
           </div>
           
-          <p className="text-lg mb-2 font-bold text-[#525252] px-2 sm:px-0">
+          <p 
+            className={`text-lg mb-2 font-bold text-[#525252] px-2 sm:px-0 ${transitionClasses}`}
+            style={introPStyle}
+          >
             My name is Zhijiang (Zach) Ye, and I am currently pursuing Bachelor of Science in Biology and Applied 
             Mathematics (double major) at Emory University, with an expected graduation in May 2026.
           </p>
 
-          <hr className="w-full border-gray-300 my-2" />
+          <hr 
+            className={`w-full border-gray-300 my-2 ${transitionClasses}`} 
+            style={hrStyle}
+          />
           
-          <div className="w-full grid grid-cols-1 md:grid-cols-[2fr_1.5fr_1fr] gap-x-8 mt-1 px-2 sm:px-0 md:items-start">
+          <div 
+            className={`w-full grid grid-cols-1 md:grid-cols-[3fr_0.5fr_1.5fr_1.5fr] gap-x-8 mt-1 px-2 sm:px-0 md:items-start ${transitionClasses}`}
+            style={mainGridStyle}
+          >
             
             <div className="flex flex-col">
               <div>
-                <p className="text-lg text-black mb-2">
+                <p className="text-lg text-black mb-1">
                   Currently I am working as an undergraduate researcher in the Sarafianos Lab at Emory Pediatrics. Here I investigate interaction dynamics between engineered HIV-1 Capsid protein (CA121) mutants and specific inhibitory compounds.
                 </p>
                 <p className="text-lg text-black">
@@ -91,25 +128,36 @@ export default function About() {
               </div>
             </div>
 
+            <div></div>
+
             <div className="flex flex-col md:pt-0">
               <div className="mt-4 md:mt-0">
-                <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap">biology</h2>
+                <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap md:text-right">Biology</h2>
               </div>
-              <div className="mt-[150px]">
-                <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap">Applied</h2>
-                <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap mt-1">Math</h2>
+              <div className="mt-10 md:mt-[160px]">
+                <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap md:text-right">Applied</h2>
+                <h2 className="text-5xl font-bold text-[#86CECB] whitespace-nowrap mt-1 md:text-right">Math</h2>
               </div>
             </div>
 
-            <div className="mt-8 md:mt-0">
-              <div className="relative w-full sm:w-4/5 mx-auto h-auto aspect-[3/4]">
+            <div className="mt-8 md:mt-1 flex flex-col items-end">
+              <div className="relative w-full mx-auto h-auto aspect-[3/4]">
                 <Image 
                   src="/imgs/profile_trimmed.jpg"
-                  alt="Zhijiang (Zach) Ye profile picture"
+                  alt="profile picture"
                   fill
                   className="rounded-lg object-cover"
                 />
               </div>
+              <a 
+                href="https://www.instagram.com/_zhijiang_ww/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="mt-4 bg-black px-3 sm:px-4 py-2 rounded-full hover:bg-gray-800 transition-colors font-bold text-sm sm:text-base"
+                style={{ color: 'white' }}
+              >
+                Instagram (non-academic)
+              </a>
             </div>
           </div>
         </div>

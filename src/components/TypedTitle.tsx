@@ -4,9 +4,25 @@ import { useState, useEffect } from 'react';
 
 export default function TypedTitle() {
   const fullTitle = "Chloriiin です。";
+  const chloriiinPart = "Chloriiin";
   const [displayedText, setDisplayedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  const [selectedStyle, setSelectedStyle] = useState({ fontFamily: '', color: '' });
+
+  const fontFamilies = [
+    'SF Pro, "Segoe UI", Helvetica, sans-serif, Palatino', // SF Pro-like
+    'Silkscreen, Rockwell, Monaco, Consolas, "Courier New", monospace, Rockwell', // Code-like
+    'monospace', // Pixel-like approximation
+  ];
+  const colors = ['black', '#cf3c83', '#96ccca'];
+
+  useEffect(() => {
+    const randomFont = fontFamilies[Math.floor(Math.random() * fontFamilies.length)];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    setSelectedStyle({ fontFamily: randomFont, color: randomColor });
+  }, []); // Run once on mount
 
   // Typing animation effect
   useEffect(() => {
@@ -25,34 +41,45 @@ export default function TypedTitle() {
 
   // Flickering cursor effect at consistently 3 times per second
   useEffect(() => {
-    // Fixed interval for consistent flickering (3 times per second)
     const flickerInterval = 333; // Exactly 3 times per second
-    
-    // Use setInterval instead of recursive setTimeout to prevent timing issues
     const flickerTimer = setInterval(() => {
       setShowCursor(prev => !prev);
     }, flickerInterval);
-    
-    // Cleanup function
     return () => clearInterval(flickerTimer);
   }, []);
 
-  // Format the displayed text to add spacing between Chloriiin and です
-  const formatDisplayedText = () => {
-    if (displayedText.includes('です')) {
-      const parts = displayedText.split('で');
-      return (
-        <>
-          {parts[0]}<span className="ml-2 md:ml-4">で{parts[1] || ''}</span>
-        </>
-      );
+  // Render the displayed text with custom styling for "Chloriiin"
+  const renderStyledText = () => {
+    let chloriiinDisplay = '';
+    let restDisplay = '';
+
+    if (displayedText.length <= chloriiinPart.length) {
+      chloriiinDisplay = displayedText;
+    } else {
+      chloriiinDisplay = chloriiinPart;
+      restDisplay = displayedText.substring(chloriiinPart.length);
     }
-    return displayedText;
+
+    return (
+      <>
+        <span style={{ fontFamily: selectedStyle.fontFamily, color: selectedStyle.color }}>
+          {chloriiinDisplay}
+        </span>
+        {/* Apply existing spacing logic for です。 if present in restDisplay */}
+        {restDisplay.includes('です。') ? (
+          <span className="ml-2 md:ml-4">
+            {restDisplay.trim()} {/* trim to handle potential leading space if split logic changes */}
+          </span>
+        ) : (
+          restDisplay
+        )}
+      </>
+    );
   };
 
   return (
     <h1 className="text-5xl md:text-7xl font-bold mb-4 text-left whitespace-nowrap relative">
-      {formatDisplayedText()}
+      {renderStyledText()}
       <span 
         className={`${showCursor ? 'opacity-100' : 'opacity-0'} ml-1 inline-block`}
         style={{ 

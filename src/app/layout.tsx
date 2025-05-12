@@ -2,7 +2,7 @@ import './globals.css';
 import Navbar from '../components/Navbar';
 
 export const metadata = {
-  title: 'Chloriiin - Personal Website',
+  title: 'Zach Ye - Personal Website',
   description: 'My personal website and portfolio',
 };
 
