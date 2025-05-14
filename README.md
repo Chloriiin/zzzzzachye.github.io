@@ -33,4 +33,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on GitHub Pages
 
-This site is automatically deployed to GitHub Pages whenever changes are pushed to the main branch. 
+This site is automatically deployed to GitHub Pages whenever changes are pushed to the main branch.
+
+## Attribution
+
+- The toggle arrow icon used on the Blogs & Notes page is from Figma's Simple Design System UI Kit, licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). 

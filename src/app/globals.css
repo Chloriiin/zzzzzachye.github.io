@@ -41,4 +41,47 @@ h1, h2, h3, h4, h5, h6 {
   .font-sfpro {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
+}
+
+/* Base styles for all pages - allow scrolling by default */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Notion embed specific styles */
+.notion-embed-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Hide scrollbars ONLY on pages with the notion-embed-wrapper class */
+.notion-embed-wrapper {
+  overflow: hidden !important;
+  height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make parent elements of pages with notion embeds have hidden overflow */
+html:has(.notion-embed-wrapper),
+body:has(.notion-embed-wrapper) {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Make sure iframe takes full height and handles scrolling internally */
+.notion-embed-container iframe {
+  flex: 1;
+}
+
+/* Enhanced hover effect for the navigation bar */
+.fixed.z-50.p-2.bg-white {
+  transition: all 0.2s ease-in-out;
+}
+
+.fixed.z-50.p-2.bg-white:hover {
+  transform: translateY(2px);
 } 

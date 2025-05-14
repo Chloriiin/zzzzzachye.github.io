@@ -3,10 +3,33 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+
+// Helper function to check if current page contains a Notion embed
+const isNotionEmbedPage = (pathname: string | null): boolean => {
+  if (!pathname) return false;
+  
+  // Check if the path is one of the known Notion embed pages
+  const notionPages = [
+    '/blogs/japanese1',
+    '/blogs/japanese2',
+    '/blogs/japanese3',
+    '/blogs/numerical',
+    '/blogs/pde',
+    '/blogs/ode',
+    '/blogs/statistics',
+    '/blogs/mathmodeling',
+    '/blogs/biology',
+    '/blogs/enzymes'
+  ];
+  
+  return notionPages.some(page => pathname === page);
+};
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isBackButtonHovered, setIsBackButtonHovered] = useState(false);
   const [indicatorStyle, setIndicatorStyle] = useState({
     left: 0,
     width: 0,
@@ -76,18 +99,42 @@ export default function Navbar() {
   useEffect(() => {
     resetLinksRef();
   }, []);
+  
+  // Check if we're on a Notion embed page
+  const isNotionPage = isNotionEmbedPage(pathname);
 
   return (
     <nav className="w-full flex justify-center fixed top-8 left-0 right-0 z-50">
       <div className="w-[670px] h-[52px] flex items-center justify-between bg-[#E4E4E4]/60 backdrop-blur-lg rounded-full px-3">
-        <button 
-          className="flex items-center justify-center p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+        {isNotionPage ? (
+          // Back button for notion pages
+          <Link 
+            href="/blogs" 
+            className="flex items-center justify-center p-2"
+            onMouseEnter={() => setIsBackButtonHovered(true)}
+            onMouseLeave={() => setIsBackButtonHovered(false)}
+          >
+            <div className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 ${isBackButtonHovered ? 'bg-black' : 'bg-transparent'}`}>
+              <Image 
+                src={isBackButtonHovered ? "/imgs/arrow_back.svg" : "/imgs/arrow_back_black.svg"} 
+                width={24} 
+                height={24} 
+                alt="Back" 
+                className="w-6 h-6" 
+              />
+            </div>
+          </Link>
+        ) : (
+          // Hamburger menu for regular pages
+          <button 
+            className="flex items-center justify-center p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        )}
         <div className="flex flex-1 justify-around relative" ref={navRef}>
           {/* Background indicator that expands like a balloon */}
           <div 
@@ -143,7 +190,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {isMobileMenuOpen && (
+      {isMobileMenuOpen && !isNotionPage && (
         <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-[#E4E4E4]/80 backdrop-blur-lg rounded-lg p-4 md:hidden w-[670px]">
           <Link href="/" className={`block py-2 font-sfpro ${isActive('/') ? 'font-bold' : 'font-normal'}`}>Home</Link>
           <Link href="/blogs" className={`block py-2 font-sfpro ${isActive('/blogs') ? 'font-bold' : 'font-normal'}`}>Blogs/Notes</Link>
