@@ -1,6 +1,7 @@
 {
-  "name": "chloriiin.github.io",
-  "version": "1.0.0",
+  "name": "zzzzzachye.github.io",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Chloriiin/chloriiin.github.io.git"
+    "url": "git+https://github.com/zzzzzachye/zzzzzachye.github.io.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Chloriiin/chloriiin.github.io/issues"
+    "url": "https://github.com/zzzzzachye/zzzzzachye.github.io/issues"
   },
-  "homepage": "https://github.com/Chloriiin/chloriiin.github.io#readme",
+  "homepage": "https://github.com/zzzzzachye/zzzzzachye.github.io#readme",
   "description": "Personal website",
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
