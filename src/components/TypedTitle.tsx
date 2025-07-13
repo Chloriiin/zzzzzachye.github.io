@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 
 export default function TypedTitle() {
-  const fullTitle = "Chloriiin です。";
-  const chloriiinPart = "Chloriiin";
+  const fullTitle = "Zach Ye です。";
+  const chloriiinPart = "Zach Ye";
   const [displayedText, setDisplayedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
@@ -48,7 +48,7 @@ export default function TypedTitle() {
     return () => clearInterval(flickerTimer);
   }, []);
 
-  // Render the displayed text with custom styling for "Chloriiin"
+  // Render the displayed text with custom styling for "Zach Ye"
   const renderStyledText = () => {
     let chloriiinDisplay = '';
     let restDisplay = '';
