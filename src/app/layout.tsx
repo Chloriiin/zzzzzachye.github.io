@@ -4,6 +4,9 @@ import Navbar from '../components/Navbar';
 export const metadata = {
   title: 'Zach Ye - Personal Website',
   description: 'My personal website and portfolio',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
